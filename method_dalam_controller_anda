@@ -1,0 +1,13 @@
+function backup_database()
+    {
+        try {
+            $tglSkrg = Date('dmY');
+            $namafile = 'database/dbbackup-' . $tglSkrg . '.sql';
+            $dump = new Mysqldump('mysql:host=localhost;dbname=namadatabase;port=3306', 'root', '');
+            $dump->start($namafile);
+            session()->setFlashdata('message', '<div class="alert alert-success text-center" role="alert">Backup Berhasil.</div>');
+        } catch (\Exception $e) {
+            session()->setFlashdata('message', '<div class="alert alert-danger text-center" role="alert">ERROR<br>' . $e->getMessage()) . '</div>';
+        }
+        return redirect()->to(nama router);
+    }
